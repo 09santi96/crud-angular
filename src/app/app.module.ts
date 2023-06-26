@@ -10,16 +10,50 @@ import { AboutComponent } from './about/about.component';
 
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { CoursesComponent } from './courses/courses.component';
+import { CoursesDetailComponent } from './courses-detail/courses-detail.component';
+import { ContactInfoComponent } from './contact-info/contact-info.component';
+import { ContactDetailsComponent } from './contact-details/contact-details.component';
 
 const routes : Routes = [
   {
-    path :'', component: HomeComponent
+    path :'home', 
+    component: HomeComponent
   },
   {
-    path :'Contact', component: ContactComponent
+    path: 'courses', 
+    component: CoursesComponent
   },
   {
-    path :'About', component: AboutComponent
+    path : 'courses/:course', 
+    component: CoursesDetailComponent
+  },
+  {
+    path :'contact', 
+    component: ContactComponent,
+    children: [
+      {
+        path: '',
+        component: ContactInfoComponent
+      },
+      {
+        path: 'details',
+        component: ContactDetailsComponent
+      }
+    ]
+  },
+  {
+    path :'about', 
+    component: AboutComponent
+  },
+  {
+    path: '', 
+    redirectTo: '/home', 
+    pathMatch: 'full'
+  },
+  {
+    path: '**', 
+    component: PageNotFoundComponent
   }
 ];
 
@@ -29,7 +63,11 @@ const routes : Routes = [
     HomeComponent,
     ContactComponent,
     AboutComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CoursesComponent,
+    CoursesDetailComponent,
+    ContactInfoComponent,
+    ContactDetailsComponent
   ],
   imports: [
     BrowserModule,
